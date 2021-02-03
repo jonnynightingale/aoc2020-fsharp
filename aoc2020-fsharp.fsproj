@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>aco2020_fsharp</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Day01.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+</Project>
