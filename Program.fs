@@ -9,13 +9,14 @@ type Problem = {
 }
 
 let problems = [
-    { dayNumber = 1; filename = @"../../../input/day01.txt"; solve = Day01.solve }
+    { dayNumber = 1; filename = @"../../../input/day01.txt"; solve = Day01.Solve }
+    { dayNumber = 2; filename = @"../../../input/day02.txt"; solve = Day02.Solve }
 ]
 
-let PrintSolution (dayNumber : int) (solution : int * int) =
+let PrintSolution ((dayNumber : int), (solution : int * int)) =
     printfn "Day %i" dayNumber
-    fst solution |> printfn "  Part one: %i"
-    snd solution |> printfn "  Part two: %i"
+    printfn "  Part one: %i" <| fst solution
+    printfn "  Part two: %i" <| snd solution
 
 let Solve problem = File.ReadAllLines problem.filename |> problem.solve
 
@@ -23,6 +24,6 @@ let Solve problem = File.ReadAllLines problem.filename |> problem.solve
 let main argv =
     problems
     |> List.map (fun problem -> problem.dayNumber, Solve problem)
-    |> List.map (fun x -> PrintSolution (fst x) (snd x))
+    |> List.map PrintSolution
     |> ignore
     0
