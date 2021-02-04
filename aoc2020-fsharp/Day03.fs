@@ -16,8 +16,7 @@ let private NumberOfTreesOnRoute (input : string array) mapWidth slope =
     input
     |> Array.indexed
     |> Array.filter (fun (i, _) -> (i % slope.y) = 0)
-    |> Array.map (fun (_, row) -> row)
-    |> Array.mapi (fun i row -> (i * slope.x) % mapWidth, row)
+    |> Array.mapi (fun i (_, row) -> (i * slope.x) % mapWidth, row)
     |> Array.filter (fun (i, row) -> row.Chars i = '#')
     |> Array.length
 

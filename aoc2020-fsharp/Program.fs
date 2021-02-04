@@ -9,9 +9,10 @@ type Problem = {
 }
 
 let problems = [
-    { dayNumber = 1; filename = @"../../../input/day01.txt"; solve = Day01.Solve }
-    { dayNumber = 2; filename = @"../../../input/day02.txt"; solve = Day02.Solve }
-    { dayNumber = 3; filename = @"../../../input/day03.txt"; solve = Day03.Solve }
+    { dayNumber = 1; filename = @"../../../../input/day01.txt"; solve = Day01.Solve }
+    { dayNumber = 2; filename = @"../../../../input/day02.txt"; solve = Day02.Solve }
+    { dayNumber = 3; filename = @"../../../../input/day03.txt"; solve = Day03.Solve }
+    { dayNumber = 4; filename = @"../../../../input/day04.txt"; solve = Day04.Solve }
 ]
 
 let PrintSolution (dayNumber, solution) =
@@ -22,9 +23,8 @@ let PrintSolution (dayNumber, solution) =
 let Solve problem = File.ReadAllLines problem.filename |> problem.solve
 
 [<EntryPoint>]
-let main argv =
+let main _ =
     problems
     |> List.map (fun problem -> problem.dayNumber, Solve problem)
-    |> List.map PrintSolution
-    |> ignore
+    |> List.iter PrintSolution
     0
