@@ -27,4 +27,4 @@ let Solve (input : string array) =
     let numbers = input |> Array.map int |> Array.toList
     let partOneSolution = ProductPair 2020 numbers |> Option.get
     let partTwoSolution = ProductTriplet 2020 numbers |> Option.get
-    partOneSolution, partTwoSolution
+    partOneSolution |> uint, partTwoSolution |> uint

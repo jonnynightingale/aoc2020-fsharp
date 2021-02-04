@@ -37,4 +37,4 @@ let Solve (input : string array) =
     let policiesAndPasswords = input |> Array.map ParseInputLine
     let partOneSolution = CountValidPasswords policiesAndPasswords ValidatePasswordRuleOne
     let partTwoSolution = CountValidPasswords policiesAndPasswords ValidatePasswordRuleTwo
-    partOneSolution, partTwoSolution
+    partOneSolution |> uint, partTwoSolution |> uint
