@@ -8,14 +8,14 @@ I use a functional style as much as is reasonably possible, aiming to write idio
 
 ## Building
 1. Clone the repository
-```
-git clone git@github.com:jonnybolton/aoc2020-fsharp.git
-```
+   ```
+   git clone git@github.com:jonnybolton/aoc2020-fsharp.git
+   ```
 2. Create an "input" directory inside the repo
-```
-cd aoc2020-fsharp
-mkdir input
-```
+   ```
+   cd aoc2020-fsharp
+   mkdir input
+   ```
 3. Download the puzzle input files from the Advent of Code website (https://adventofcode.com/2020) and place them inside the "input" directory. They should be named day01.txt, day02.txt, etc..
 4. Open the visual studio solution aoc2020-fsharp.sln.
 5. Build and run.
