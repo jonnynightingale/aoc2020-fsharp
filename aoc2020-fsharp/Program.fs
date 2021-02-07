@@ -14,6 +14,7 @@ let problems = [
     { dayNumber = 3; filename = @"../../../../input/day03.txt"; solve = Day03.Solve }
     { dayNumber = 4; filename = @"../../../../input/day04.txt"; solve = Day04.Solve }
     { dayNumber = 5; filename = @"../../../../input/day05.txt"; solve = Day05.Solve }
+    { dayNumber = 6; filename = @"../../../../input/day06.txt"; solve = Day06.Solve }
 ]
 
 let PrintSolution (dayNumber, solution) =
