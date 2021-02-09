@@ -30,7 +30,7 @@ I use a functional style as much as is reasonably possible, aiming to write idio
 | [Day 5: Binary Boarding](https://adventofcode.com/2020/day/5)       | [Day05.fs](aoc2020-fsharp/Day05.fs) | ✔️     | ✔️     |
 | [Day 6: Custom Customs](https://adventofcode.com/2020/day/6)        | [Day06.fs](aoc2020-fsharp/Day06.fs) | ✔️     | ✔️     |
 | [Day 7: Handy Haversacks](https://adventofcode.com/2020/day/7)      | [Day07.fs](aoc2020-fsharp/Day07.fs) | ✔️     | ✔️     |
-| [Day 8: Handheld Halting](https://adventofcode.com/2020/day/8)      | [Day08.fs](aoc2020-fsharp/Day08.fs) | ✔️     |        |
+| [Day 8: Handheld Halting](https://adventofcode.com/2020/day/8)      | [Day08.fs](aoc2020-fsharp/Day08.fs) | ✔️     | ✔️     |
 | [Day 9](https://adventofcode.com/2020/day/9)   |                                     |        |        |
 | [Day 10](https://adventofcode.com/2020/day/10) |                                     |        |        |
 | [Day 11](https://adventofcode.com/2020/day/11) |                                     |        |        |
