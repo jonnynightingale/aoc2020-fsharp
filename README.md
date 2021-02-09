@@ -21,15 +21,15 @@ I use a functional style as much as is reasonably possible, aiming to write idio
 5. Build and run.
 
 ## Progress
-| Challenge                                      | File                                | Part 1 | Part 2 |
-|------------------------------------------------|-------------------------------------|:------:|:------:|
-| [Day 1](https://adventofcode.com/2020/day/1)   | [Day01.fs](aoc2020-fsharp/Day01.fs) | ✔️     | ✔️     |
-| [Day 2](https://adventofcode.com/2020/day/2)   | [Day02.fs](aoc2020-fsharp/Day02.fs) | ✔️     | ✔️     |
-| [Day 3](https://adventofcode.com/2020/day/3)   | [Day03.fs](aoc2020-fsharp/Day03.fs) | ✔️     | ✔️     |
-| [Day 4](https://adventofcode.com/2020/day/4)   | [Day04.fs](aoc2020-fsharp/Day04.fs) | ✔️     | ✔️     |
-| [Day 5](https://adventofcode.com/2020/day/5)   | [Day05.fs](aoc2020-fsharp/Day05.fs) | ✔️     | ✔️     |
-| [Day 6](https://adventofcode.com/2020/day/6)   | [Day06.fs](aoc2020-fsharp/Day06.fs) | ✔️     | ✔️     |
-| [Day 7](https://adventofcode.com/2020/day/7)   |                                     |        |        |
+| Challenge                                                           | File                                | Part 1 | Part 2 |
+|---------------------------------------------------------------------|-------------------------------------|:------:|:------:|
+| [Day 1: Report Repair](https://adventofcode.com/2020/day/1)         | [Day01.fs](aoc2020-fsharp/Day01.fs) | ✔️     | ✔️     |
+| [Day 2: Password Philosophy](https://adventofcode.com/2020/day/2)   | [Day02.fs](aoc2020-fsharp/Day02.fs) | ✔️     | ✔️     |
+| [Day 3: Toboggan Trajectory](https://adventofcode.com/2020/day/3)   | [Day03.fs](aoc2020-fsharp/Day03.fs) | ✔️     | ✔️     |
+| [Day 4: Passport Processing](https://adventofcode.com/2020/day/4)   | [Day04.fs](aoc2020-fsharp/Day04.fs) | ✔️     | ✔️     |
+| [Day 5: Binary Boarding](https://adventofcode.com/2020/day/5)       | [Day05.fs](aoc2020-fsharp/Day05.fs) | ✔️     | ✔️     |
+| [Day 6: Custom Customs](https://adventofcode.com/2020/day/6)        | [Day06.fs](aoc2020-fsharp/Day06.fs) | ✔️     | ✔️     |
+| [Day 7: Handy Haversacks](https://adventofcode.com/2020/day/7)      | [Day07.fs](aoc2020-fsharp/Day07.fs) | ✔️     | ✔️     |
 | [Day 8](https://adventofcode.com/2020/day/8)   |                                     |        |        |
 | [Day 9](https://adventofcode.com/2020/day/9)   |                                     |        |        |
 | [Day 10](https://adventofcode.com/2020/day/10) |                                     |        |        |
