@@ -31,20 +31,20 @@ I use a functional style as much as is reasonably possible, aiming to write idio
 | [Day 6: Custom Customs](https://adventofcode.com/2020/day/6)        | [Day06.fs](aoc2020-fsharp/Day06.fs) | ✔️     | ✔️     |
 | [Day 7: Handy Haversacks](https://adventofcode.com/2020/day/7)      | [Day07.fs](aoc2020-fsharp/Day07.fs) | ✔️     | ✔️     |
 | [Day 8: Handheld Halting](https://adventofcode.com/2020/day/8)      | [Day08.fs](aoc2020-fsharp/Day08.fs) | ✔️     | ✔️     |
-| [Day 9](https://adventofcode.com/2020/day/9)   |                                     |        |        |
-| [Day 10](https://adventofcode.com/2020/day/10) |                                     |        |        |
-| [Day 11](https://adventofcode.com/2020/day/11) |                                     |        |        |
-| [Day 12](https://adventofcode.com/2020/day/12) |                                     |        |        |
-| [Day 13](https://adventofcode.com/2020/day/13) |                                     |        |        |
-| [Day 14](https://adventofcode.com/2020/day/14) |                                     |        |        |
-| [Day 15](https://adventofcode.com/2020/day/15) |                                     |        |        |
-| [Day 16](https://adventofcode.com/2020/day/16) |                                     |        |        |
-| [Day 17](https://adventofcode.com/2020/day/17) |                                     |        |        |
-| [Day 18](https://adventofcode.com/2020/day/18) |                                     |        |        |
-| [Day 19](https://adventofcode.com/2020/day/19) |                                     |        |        |
-| [Day 20](https://adventofcode.com/2020/day/20) |                                     |        |        |
-| [Day 21](https://adventofcode.com/2020/day/21) |                                     |        |        |
-| [Day 22](https://adventofcode.com/2020/day/22) |                                     |        |        |
-| [Day 23](https://adventofcode.com/2020/day/23) |                                     |        |        |
-| [Day 24](https://adventofcode.com/2020/day/24) |                                     |        |        |
-| [Day 25](https://adventofcode.com/2020/day/25) |                                     |        |        |
+| [Day 9: Encoding Error](https://adventofcode.com/2020/day/9)        | [Day09.fs](aoc2020-fsharp/Day09.fs) | ✔️     |        |
+| [Day 10](https://adventofcode.com/2020/day/10)                      |                                     |        |        |
+| [Day 11](https://adventofcode.com/2020/day/11)                      |                                     |        |        |
+| [Day 12](https://adventofcode.com/2020/day/12)                      |                                     |        |        |
+| [Day 13](https://adventofcode.com/2020/day/13)                      |                                     |        |        |
+| [Day 14](https://adventofcode.com/2020/day/14)                      |                                     |        |        |
+| [Day 15](https://adventofcode.com/2020/day/15)                      |                                     |        |        |
+| [Day 16](https://adventofcode.com/2020/day/16)                      |                                     |        |        |
+| [Day 17](https://adventofcode.com/2020/day/17)                      |                                     |        |        |
+| [Day 18](https://adventofcode.com/2020/day/18)                      |                                     |        |        |
+| [Day 19](https://adventofcode.com/2020/day/19)                      |                                     |        |        |
+| [Day 20](https://adventofcode.com/2020/day/20)                      |                                     |        |        |
+| [Day 21](https://adventofcode.com/2020/day/21)                      |                                     |        |        |
+| [Day 22](https://adventofcode.com/2020/day/22)                      |                                     |        |        |
+| [Day 23](https://adventofcode.com/2020/day/23)                      |                                     |        |        |
+| [Day 24](https://adventofcode.com/2020/day/24)                      |                                     |        |        |
+| [Day 25](https://adventofcode.com/2020/day/25)                      |                                     |        |        |
