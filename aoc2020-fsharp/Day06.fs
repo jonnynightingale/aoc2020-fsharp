@@ -33,4 +33,4 @@ let Solve (input : string array) =
         parsedInput |> List.map fold |> List.map CountBits |> List.sum
     let partOneSolution = SolveWithFold PartOneFold
     let partTwoSolution = SolveWithFold PartTwoFold
-    uint partOneSolution, uint partTwoSolution
+    uint64 partOneSolution, uint64 partTwoSolution

@@ -25,6 +25,6 @@ let rec private ProductTriplet target numbers =
 
 let Solve (input : string array) =
     let numbers = input |> Array.map int |> Array.toList
-    let partOneSolution = ProductPair 2020 numbers |> Option.get
+    let partOneSolution = ProductPair    2020 numbers |> Option.get
     let partTwoSolution = ProductTriplet 2020 numbers |> Option.get
-    partOneSolution |> uint, partTwoSolution |> uint
+    uint64 partOneSolution, uint64 partTwoSolution

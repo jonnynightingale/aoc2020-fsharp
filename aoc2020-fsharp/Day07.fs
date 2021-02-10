@@ -40,4 +40,4 @@ let Solve (input : string array) =
     let parsedInput = input |> Parse
     let partOneSolution = parsedInput |> NumberOfOutermostBagPossibilities "shiny gold"
     let partTwoSolution = parsedInput |> NumberOfBagsInside "shiny gold"
-    uint partOneSolution, uint partTwoSolution
+    uint64 partOneSolution, uint64 partTwoSolution

@@ -33,4 +33,4 @@ let Solve (input : string array) =
     let numbers = input |> Array.map int64
     let partOneSolution = numbers |> GroupValues 25 |> FirstInvalidNumber
     let partTwoSolution = numbers |> FirstSliceThatSumsTo partOneSolution |> SumOfMinAndMax
-    uint partOneSolution, uint partTwoSolution
+    uint64 partOneSolution, uint64 partTwoSolution

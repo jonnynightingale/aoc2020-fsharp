@@ -92,6 +92,6 @@ let private ValidateComplex (passport : Passport) =
 let Solve (input : string array) =
     let validPassportsSimple = input |> Parse |> List.filter ValidateSimple
     let validPassportsComplex = validPassportsSimple |> List.filter ValidateComplex
-    let partOneSolution = validPassportsSimple |> List.length |> uint
-    let partTwoSolution = validPassportsComplex |> List.length |> uint
-    partOneSolution, partTwoSolution
+    let partOneSolution = validPassportsSimple |> List.length
+    let partTwoSolution = validPassportsComplex |> List.length
+    uint64 partOneSolution, uint64 partTwoSolution

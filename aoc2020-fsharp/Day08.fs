@@ -69,4 +69,4 @@ let Solve (input : string array) =
     let program = input |> Array.map ParseLine
     let partOneSolution = program |> Run initialState |> snd |> (fun i -> i.accumulator)
     let partTwoSolution = program |> FixProgramAndRun |> (fun i -> i.accumulator)
-    uint partOneSolution, uint partTwoSolution
+    uint64 partOneSolution, uint64 partTwoSolution

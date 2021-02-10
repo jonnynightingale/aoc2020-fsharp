@@ -20,17 +20,14 @@ let private NumberOfTreesOnRoute (input : string array) mapWidth slope =
     |> Array.filter (fun (i, row) -> row.Chars i = '#')
     |> Array.length
 
-let private PartOneSolution input mapWidth =
-    NumberOfTreesOnRoute input mapWidth partOneSlope |> uint
-
-let private PartTwoSolution input mapWidth =
+let private SolvePartTwo input mapWidth =
     partTwoSlopes
     |> Array.map (NumberOfTreesOnRoute input mapWidth)
-    |> Array.map uint
+    |> Array.map uint64
     |> Array.reduce (*)
 
 let Solve (input : string array) =
     let mapWidth = input.[0].Length
-    let partOneSolution = PartOneSolution input mapWidth
-    let partTwoSolution = PartTwoSolution input mapWidth
-    partOneSolution, partTwoSolution
+    let partOneSolution = NumberOfTreesOnRoute input mapWidth partOneSlope
+    let partTwoSolution = SolvePartTwo input mapWidth
+    uint64 partOneSolution, uint64 partTwoSolution

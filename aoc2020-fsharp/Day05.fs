@@ -43,4 +43,4 @@ let Solve (input : string array) =
     let seatIds = input |> Array.map (ParseLocation >> SeatId)
     let maxId = seatIds |> Array.max
     let missingSeatId = seatIds |> MissingNumber maxId
-    uint maxId, uint missingSeatId
+    uint64 maxId, uint64 missingSeatId
