@@ -21,9 +21,7 @@ let problems = [
 ]
 
 let PrintSolution (dayNumber, solution) =
-    printfn "Day %i" dayNumber
-    printfn "  Part one: %i" <| fst solution
-    printfn "  Part two: %i" <| snd solution
+    printfn "Day %02i: [ %i, %i ]" dayNumber (fst solution) (snd solution)
 
 let Solve problem = File.ReadAllLines problem.filename |> problem.solve
 
