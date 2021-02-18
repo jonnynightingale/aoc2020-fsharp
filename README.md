@@ -36,7 +36,7 @@ I use a functional style as much as is reasonably possible, aiming to write idio
 | [Day 11: Seating System](https://adventofcode.com/2020/day/11)          | [Day11.fs](aoc2020-fsharp/Day11.fs) | ✔️     | ✔️     |
 | [Day 12: Rain Risk](https://adventofcode.com/2020/day/12)               | [Day12.fs](aoc2020-fsharp/Day12.fs) | ✔️     | ✔️     |
 | [Day 13: Shuttle Search](https://adventofcode.com/2020/day/13)          | [Day13.fs](aoc2020-fsharp/Day13.fs) | ✔️     | ✔️     |
-| [Day 14: Docking Data](https://adventofcode.com/2020/day/14)            |                                     |        |        |
+| [Day 14: Docking Data](https://adventofcode.com/2020/day/14)            | [Day14.fs](aoc2020-fsharp/Day14.fs) | ✔️     |        |
 | [Day 15: Rambunctious Recitation](https://adventofcode.com/2020/day/15) |                                     |        |        |
 | [Day 16: Ticket Translation](https://adventofcode.com/2020/day/16)      |                                     |        |        |
 | [Day 17: Conway Cubes](https://adventofcode.com/2020/day/17)            |                                     |        |        |
