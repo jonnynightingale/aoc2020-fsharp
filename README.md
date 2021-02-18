@@ -3,6 +3,11 @@ I am using [2020's Advent of Code](https://adventofcode.com/) challenge as an ex
 My solutions are unlikely to be highly optimised, but the algorithms used should be reasonable.
 I use a functional style as much as is reasonably possible, aiming to write idiomatic F#.
 
+Some of the loose constraints I put on myself are:
+- No loops (for, while, ...)
+- No mutable state
+- No classes
+
 ## Prerequisites
 - Visual Studio 2019 with F# modules included.
 
