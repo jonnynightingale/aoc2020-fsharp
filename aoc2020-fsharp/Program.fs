@@ -2,6 +2,7 @@
 
 open System.IO
 
+[<NoEquality; NoComparison>]
 type Problem = {
     dayNumber : int
     filename : string
