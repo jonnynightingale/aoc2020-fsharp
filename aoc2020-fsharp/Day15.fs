@@ -1,19 +1,24 @@
 ﻿module Day15
 
-let private Iterate (numbers : int array) =
-    let lastNumber = numbers |> Array.last
-    let previousNumbers = numbers.[..(numbers.Length - 2)]
-    match previousNumbers |> Array.tryFindIndexBack ((=) lastNumber) with
-    | Some(i) -> [| previousNumbers.Length - i |] |> Array.append numbers
-    | None -> [| 0 |] |> Array.append numbers
+open System.Collections.Generic
 
-let private IterateN n (numbers : int array) =
-    let rec Impl (innerNumbers : int array) =
-        if innerNumbers.Length = n then innerNumbers else innerNumbers |> Iterate |> Impl
-    Impl numbers
+let private NthValue2 n (numbers : int array) =
+    let lastSeenIndex = new Dictionary<int, int> ()
+    let rec Impl (index : int) (num : int) =
+        if index = n then num
+        else
+            let nextIndex = index + 1
+            let nextNum =
+                match lastSeenIndex.TryGetValue num with
+                | true, value -> index - value
+                | false, _ -> 0
+            lastSeenIndex.[num] <- index
+            Impl nextIndex nextNum
+    numbers |> Array.indexed |> Array.iter (fun (a, b) -> lastSeenIndex.Add (b, a + 1))
+    Impl (numbers.Length + 1) 0
 
 let Solve (input : string array) =
     let numbers = input.[0].Split ',' |> Array.map int
-    let partOneSolution = numbers |> IterateN 2020 |> Array.last
-    let partTwoSolution = 0
+    let partOneSolution = numbers |> NthValue2 2020
+    let partTwoSolution = numbers |> NthValue2 30000000
     uint64 partOneSolution, uint64 partTwoSolution
