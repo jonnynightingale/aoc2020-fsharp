@@ -43,7 +43,7 @@ Some of the loose constraints I put on myself are:
 | [Day 13: Shuttle Search](https://adventofcode.com/2020/day/13)          | [Day13.fs](aoc2020-fsharp/Day13.fs) | ✔️     | ✔️     |
 | [Day 14: Docking Data](https://adventofcode.com/2020/day/14)            | [Day14.fs](aoc2020-fsharp/Day14.fs) | ✔️     | ✔️     |
 | [Day 15: Rambunctious Recitation](https://adventofcode.com/2020/day/15) | [Day15.fs](aoc2020-fsharp/Day15.fs) | ✔️     | ✔️     |
-| [Day 16: Ticket Translation](https://adventofcode.com/2020/day/16)      |                                     |        |        |
+| [Day 16: Ticket Translation](https://adventofcode.com/2020/day/16)      | [Day16.fs](aoc2020-fsharp/Day16.fs) | ✔️     |        |
 | [Day 17: Conway Cubes](https://adventofcode.com/2020/day/17)            |                                     |        |        |
 | [Day 18: Operation Order](https://adventofcode.com/2020/day/18)         |                                     |        |        |
 | [Day 19: Monster Messages](https://adventofcode.com/2020/day/19)        |                                     |        |        |
