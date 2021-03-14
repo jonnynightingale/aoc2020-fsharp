@@ -26,7 +26,7 @@ Some of the loose constraints I placed on myself are:
 
 ## Progress
 | Challenge                                                               | File                                | Part 1 | Part 2 | Time (ms)           |
-|-------------------------------------------------------------------------|-------------------------------------|:------:|:------:|:-------------------:|
+|-------------------------------------------------------------------------|-------------------------------------|:------:|:------:|---------------------|
 | [Day 1: Report Repair](https://adventofcode.com/2020/day/1)             | [Day01.fs](aoc2020-fsharp/Day01.fs) | ✔️     | ✔️     | `  41 █           ` |
 | [Day 2: Password Philosophy](https://adventofcode.com/2020/day/2)       | [Day02.fs](aoc2020-fsharp/Day02.fs) | ✔️     | ✔️     | `   3 █           ` |
 | [Day 3: Toboggan Trajectory](https://adventofcode.com/2020/day/3)       | [Day03.fs](aoc2020-fsharp/Day03.fs) | ✔️     | ✔️     | `   2 █           ` |
