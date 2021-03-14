@@ -3,27 +3,26 @@ I am using [2020's Advent of Code](https://adventofcode.com/) challenge as an ex
 My solutions are unlikely to be highly optimised, but the algorithms used should be reasonable.
 I use a functional style as much as is reasonably possible, aiming to write idiomatic F#.
 
-Some of the loose constraints I put on myself are:
+Some of the loose constraints I placed on myself are:
 - No loops (for, while, ...)
 - No mutable state
 - No classes
 
 ## Prerequisites
-- Visual Studio 2019 with F# modules included.
+- [F# Interactive](https://docs.microsoft.com/en-us/dotnet/fsharp/tools/fsharp-interactive/). On Windows this can be obtained through Visual Studio Installer by installing [**.NET desktop development**](https://docs.microsoft.com/en-us/visualstudio/ide/fsharp-visual-studio?view=vs-2019).
 
-## Building
-1. Clone the repository
+## Running
+1. Clone the repository and navigate to the root of the project
    ```
    git clone git@github.com:jonnybolton/aoc2020-fsharp.git
-   ```
-2. Create an "input" directory inside the repo
-   ```
    cd aoc2020-fsharp
-   mkdir input
    ```
-3. Download the puzzle input files from the Advent of Code website (https://adventofcode.com/2020) and place them inside the "input" directory. They should be named day01.txt, day02.txt, etc..
-4. Open the visual studio solution aoc2020-fsharp.sln.
-5. Build and run.
+2. Download the puzzle input files from the [Advent of Code website](https://adventofcode.com/2020). You will be required to create an account if you do not have one.
+3. Run the code for a particular day with the following command
+   ```
+   dotnet fsi src/day01.fsx day01.txt
+   ```
+   replacing the fsx script with the corresponding day, and replacing the final argument with the path to your input for that day.
 
 ## Progress
 | Challenge                                                               | File                                | Part 1 | Part 2 |
