@@ -44,7 +44,7 @@ Some of the loose constraints I placed on myself are:
 | [Day 15: Rambunctious Recitation](https://adventofcode.com/2020/day/15) | [day15.fsx](src/day15.fsx) | ✔️     | ✔️     | ████████████ 2920 |
 | [Day 16: Ticket Translation](https://adventofcode.com/2020/day/16)      | [day16.fsx](src/day16.fsx) | ✔️     |        |                   |
 | [Day 17: Conway Cubes](https://adventofcode.com/2020/day/17)            | [day17.fsx](src/day17.fsx) | ✔️      | ✔️      |                   |
-| [Day 18: Operation Order](https://adventofcode.com/2020/day/18)         |                            |        |        |                   |
+| [Day 18: Operation Order](https://adventofcode.com/2020/day/18)         | [day18.fsx](src/day18.fsx) | ✔️      | ✔️      |                   |
 | [Day 19: Monster Messages](https://adventofcode.com/2020/day/19)        |                            |        |        |                   |
 | [Day 20: Jurassic Jigsaw](https://adventofcode.com/2020/day/20)         |                            |        |        |                   |
 | [Day 21: Allergen Assessment](https://adventofcode.com/2020/day/21)     |                            |        |        |                   |

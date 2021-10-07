@@ -13,20 +13,38 @@ module Day18 =
         Input : char array
     }
 
-    let private evaluateOperation operation evaluationFunc left right =
-        match operation with
+    let private evaluateOperation evaluationFunc left right = function
         | Add -> (evaluationFunc left) + (evaluationFunc right)
         | Multiply -> (evaluationFunc left) * (evaluationFunc right)
 
-    let rec private evaluate = function
+    let rec private evaluateLeftToRight = function
         | Number n -> uint64 n
         | CompoundExpression (expressions, operations) ->
             match (expressions, operations) with
-            | [| e |], [| |] -> evaluate e
+            | [| e |], [| |] -> evaluateLeftToRight e
             | es, os ->
-                let leftmostResult = evaluateOperation os.[0] evaluate es.[0] es.[1]
+                let leftmostResult = os.[0] |> evaluateOperation evaluateLeftToRight es.[0] es.[1]
                 let newEs = Array.append [| Number leftmostResult |] es.[2..]
-                evaluate (CompoundExpression (newEs, os.[1..]))
+                evaluateLeftToRight (CompoundExpression (newEs, os.[1..]))
+
+    let rec private evaluateOperationsWithPrecedence numbers operators =
+        match operators |> Array.tryFindIndex ((=) Add) with
+        | None -> numbers |> Array.fold (*) 1UL
+        | Some i ->
+            let sum = numbers.[i] + numbers.[i + 1]
+            let newNumbers = Array.concat [| numbers.[..i - 1]; [| sum |]; numbers.[i + 2..]; |]
+            let newOperators = operators |> Array.indexed |> Array.filter (fun (j, _) -> j <> i) |> Array.map snd
+            evaluateOperationsWithPrecedence newNumbers newOperators
+
+    let rec private evaluateAdditionThenMultiplication = function
+        | Number n -> n
+        | CompoundExpression (expressions, operators) ->
+            let numbers = expressions |> Array.map (fun e ->
+                match e with
+                | Number n -> n
+                | CompoundExpression (es, os) -> (es, os) |> CompoundExpression |> evaluateAdditionThenMultiplication
+            )
+            evaluateOperationsWithPrecedence numbers operators
 
     let private appendSubexpression subexpression expression =
         match expression with
@@ -81,8 +99,9 @@ module Day18 =
 
     let solve input =
         let expressions = parse input
-        let partOne = expressions |> Array.sumBy evaluate
-        partOne, uint64 0
+        let partOne = expressions |> Array.sumBy evaluateLeftToRight
+        let partTwo = expressions |> Array.sumBy evaluateAdditionThenMultiplication
+        partOne, partTwo
 
 let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day18.solve
 printfn "Day 18: [ %i, %i ]" (fst solution) (snd solution)
