@@ -43,7 +43,13 @@ module Day19 =
     let solve input =
         let rules, messages = parse input
         let partOne = messages |> Array.filter (isValid rules) |> Array.length
-        let partTwo = 0
+        let rules2 = rules |> Array.mapi (fun i rule ->
+            match i with
+            | 8 -> { Index = 8; SubRules = [| RuleNumbers [| 42 |]; RuleNumbers [| 42; 8 |] |] }
+            | 11 -> { Index = 11; SubRules = [| RuleNumbers [| 42; 31 |]; RuleNumbers [| 42; 11; 31 |] |] }
+            | _ -> rule
+        )
+        let partTwo = messages |> Array.filter (isValid rules2) |> Array.length
         uint64 partOne, uint64 partTwo
 
 let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day19.solve
