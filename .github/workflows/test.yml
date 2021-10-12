@@ -1,13 +1,9 @@
 name: Validate dotnet
 
 on:
-  pull_request:
-    paths-ignore:
-      - '**.md'
   push:
     branches:
-      - main
-      - releases/*
+      - master
     paths-ignore:
       - '**.md'
 
