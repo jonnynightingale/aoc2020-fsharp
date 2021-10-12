@@ -39,7 +39,4 @@
         let parsedInput = input |> parse
         let partOne = parsedInput |> numberOfOutermostBagPossibilities "shiny gold"
         let partTwo = parsedInput |> numberOfBagsInside "shiny gold"
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day07.solve
-printfn "Day 07: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

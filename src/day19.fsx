@@ -50,7 +50,4 @@ module Day19 =
             | _ -> rule
         )
         let partTwo = messages |> Array.filter (isValid rules2) |> Array.length
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day19.solve
-printfn "Day 19: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

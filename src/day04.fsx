@@ -89,9 +89,6 @@
     let solve (input : string array) =
         let validPassportsSimple = input |> parse |> List.filter validateSimple
         let validPassportsComplex = validPassportsSimple |> List.filter validateComplex
-        let partOneSolution = validPassportsSimple |> List.length
-        let partTwoSolution = validPassportsComplex |> List.length
-        uint64 partOneSolution, uint64 partTwoSolution
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day04.solve
-printfn "Day 04: [ %i, %i ]" (fst solution) (snd solution)
+        let partOne = validPassportsSimple |> List.length
+        let partTwo = validPassportsComplex |> List.length
+        string partOne, string partTwo

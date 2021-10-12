@@ -27,9 +27,6 @@
 
     let solve (input : string array) =
         let mapWidth = input.[0].Length
-        let partOneSolution = numberOfTreesOnRoute input mapWidth partOneSlope
-        let partTwoSolution = solvePartTwo input mapWidth
-        uint64 partOneSolution, uint64 partTwoSolution
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day03.solve
-printfn "Day 03: [ %i, %i ]" (fst solution) (snd solution)
+        let partOne = numberOfTreesOnRoute input mapWidth partOneSlope
+        let partTwo = solvePartTwo input mapWidth
+        string partOne, string partTwo

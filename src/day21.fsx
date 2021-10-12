@@ -61,7 +61,5 @@ module Day21 =
         let allergenIngredients = findAllergenIngredientPairs ingredientsLists allIngredients allAllergens
         let partOne = countOccurencesOfNonAllergenIngredients allergenIngredients ingredientsLists
         let partTwo = allergenIngredients |> getCanonicalDangerousIngredientList
-        uint64 partOne, partTwo
+        string partOne, string partTwo
 
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day21.solve
-printfn "Day 21: [ %i, %s ]" (fst solution) (snd solution)

@@ -34,7 +34,4 @@
         let policiesAndPasswords = input |> Array.map parseInputLine
         let partOne = policiesAndPasswords |> countValidPasswords validatePasswordRuleOne
         let partTwo = policiesAndPasswords |> countValidPasswords validatePasswordRuleTwo
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day02.solve
-printfn "Day 02: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

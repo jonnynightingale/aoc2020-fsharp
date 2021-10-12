@@ -101,7 +101,4 @@ module Day18 =
         let expressions = parse input
         let partOne = expressions |> Array.sumBy evaluateLeftToRight
         let partTwo = expressions |> Array.sumBy evaluateAdditionThenMultiplication
-        partOne, partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day18.solve
-printfn "Day 18: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

@@ -104,7 +104,4 @@
         }
         let partOne = (initialState, directives) ||> Array.fold moveShip |> manhattanDistance
         let partTwo = (initialState, directives) ||> Array.fold moveShipWithWaypoint |> manhattanDistance
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day12.solve
-printfn "Day 12: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

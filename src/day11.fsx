@@ -67,7 +67,4 @@
         let partTwoCellMapping = nextCellState 5 numberOfOccupiedNeighborsAt2
         let partOne = initialRoomState |> (iterateUntilStable partOneCellMapping) |> numberOfOccupiedSeats
         let partTwo = initialRoomState |> (iterateUntilStable partTwoCellMapping) |> numberOfOccupiedSeats
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day11.solve
-printfn "Day 11: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

@@ -20,7 +20,4 @@
         let numbers = input.[0].Split ',' |> Array.map int
         let partOne = numbers |> nthValue2 2020
         let partTwo = numbers |> nthValue2 30000000
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day15.solve
-printfn "Day 15: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

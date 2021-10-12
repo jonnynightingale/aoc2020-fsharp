@@ -83,9 +83,6 @@
     let solve input =
         let instructions = input |> parse
         let initialState = { Mask = Array.empty; Memory = Map.empty }
-        let partOneSolution = instructions |> runProgram initialState |> sumOfValuesInMemory
-        let partTwoSolution = instructions |> runProgramV2 initialState |> sumOfValuesInMemory
-        uint64 partOneSolution, uint64 partTwoSolution
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day14.solve
-printfn "Day 14: [ %i, %i ]" (fst solution) (snd solution)
+        let partOne = instructions |> runProgram initialState |> sumOfValuesInMemory
+        let partTwo = instructions |> runProgramV2 initialState |> sumOfValuesInMemory
+        string partOne, string partTwo

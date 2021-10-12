@@ -27,7 +27,4 @@
         let numbers = input |> Array.map int |> Array.toList
         let partOne = productPair 2020 numbers |> Option.get
         let partTwo = productTriplet 2020 numbers |> Option.get
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day01.solve
-printfn "Day 01: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

@@ -30,9 +30,6 @@
         let partOneFold = List.fold (|||) 0u
         let partTwoFold = List.fold (&&&) ~~~0u
         let solveWithFold fold = parsedInput |> List.sumBy (fold >> countBits)
-        let partOneSolution = solveWithFold partOneFold
-        let partTwoSolution = solveWithFold partTwoFold
-        uint64 partOneSolution, uint64 partTwoSolution
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day06.solve
-printfn "Day 06: [ %i, %i ]" (fst solution) (snd solution)
+        let partOne = solveWithFold partOneFold
+        let partTwo = solveWithFold partTwoFold
+        string partOne, string partTwo

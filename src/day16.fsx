@@ -33,10 +33,11 @@
         ticketInput.Split(',') |> Array.map int
 
     let parse (input : string array) =
+        let blankIndex = input |> Array.findIndex (String.length >> (=) 0)
         {
-            Rules = input.[0..19] |> parseRules
-            YourTicket = input.[22] |> parseTicket
-            NearbyTickets = input.[25..] |> Array.map parseTicket
+            Rules = input.[.. blankIndex - 1] |> parseRules
+            YourTicket = input.[blankIndex + 2] |> parseTicket
+            NearbyTickets = input.[blankIndex + 5 ..] |> Array.map parseTicket
         }
 
     let isValid (n : int) (rule : Rule) =
@@ -87,7 +88,4 @@
         let data = input |> parse
         let partOne = data.NearbyTickets |> Array.sumBy (errorRate data.Rules)
         let partTwo = solvePartTwo data
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day16.solve
-printfn "Day 16: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

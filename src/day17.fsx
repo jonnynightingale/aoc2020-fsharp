@@ -170,7 +170,4 @@
     let solve input =
         let partOne = input |> Grid3D.parse |> Grid3D.iterateN 6 |> countActiveCubes
         let partTwo = input |> Grid4D.parse |> Grid4D.iterateN 6 |> countActiveCubes
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day17.solve
-printfn "Day 17: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

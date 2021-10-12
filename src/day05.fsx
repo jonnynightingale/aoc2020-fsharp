@@ -43,7 +43,4 @@
         let seatIDs = input |> Array.map (parseLocation >> seatID)
         let maxId = seatIDs |> Array.max
         let missingSeatId = seatIDs |> missingNumber maxId
-        uint64 maxId, uint64 missingSeatId
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day05.solve
-printfn "Day 05: [ %i, %i ]" (fst solution) (snd solution)
+        string maxId, string missingSeatId

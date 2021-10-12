@@ -66,9 +66,6 @@
 
     let solve (input : string array) =
         let program = input |> Array.map parseLine
-        let partOneSolution = program |> run initialState |> snd |> (fun i -> i.Accumulator)
-        let partTwoSolution = program |> fixProgramAndRun |> (fun i -> i.Accumulator)
-        uint64 partOneSolution, uint64 partTwoSolution
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day08.solve
-printfn "Day 08: [ %i, %i ]" (fst solution) (snd solution)
+        let partOne = program |> run initialState |> snd |> (fun i -> i.Accumulator)
+        let partTwo = program |> fixProgramAndRun |> (fun i -> i.Accumulator)
+        string partOne, string partTwo

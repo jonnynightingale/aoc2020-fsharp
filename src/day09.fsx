@@ -32,7 +32,4 @@
         let numbers = input |> Array.map int64
         let partOne = numbers |> groupValues 25 |> firstInvalidNumber
         let partTwo = numbers |> firstSliceThatSumsTo partOne |> sumOfMinAndMax
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day09.solve
-printfn "Day 09: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

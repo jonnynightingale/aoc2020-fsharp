@@ -41,7 +41,4 @@
         let busData = input |> parse
         let partOne = busData |> findEarliestBus |> (fun (a, b) -> a * b)
         let partTwo = busData |> findEarliestTime
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day13.solve
-printfn "Day 13: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo

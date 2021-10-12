@@ -25,7 +25,4 @@
         let joltagesSortedWithEndpoints = input |> Array.map int |> sortAndAddEndpoints
         let partOne = joltagesSortedWithEndpoints |> solvePartOne
         let partTwo = joltagesSortedWithEndpoints |> solvePartTwo
-        uint64 partOne, uint64 partTwo
-
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day10.solve
-printfn "Day 10: [ %i, %i ]" (fst solution) (snd solution)
+        string partOne, string partTwo
