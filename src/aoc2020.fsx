@@ -10,3 +10,5 @@ let printSolution dayNumber inputFile =
 let dayNumbers = fsi.CommandLineArgs.[1].Split ',' |> Array.map int
 let inputFiles = fsi.CommandLineArgs.[2].Split ','
 (dayNumbers, inputFiles) ||> Array.iter2 printSolution
+
+// DELETEME
