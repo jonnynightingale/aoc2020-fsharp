@@ -2,7 +2,7 @@
 
     open System.Text.RegularExpressions
 
-    let private ParseLine line =
+    let parseLine line =
         let parentMatch = Regex.Match (line, "^(.+?) bags")
         let parent = parentMatch.Groups.[1].Value
         let childrenMatches = Regex.Matches (line, "(\d+) (.+?) bag")
@@ -13,34 +13,33 @@
             |> Seq.toArray
         parent, children
 
-    let private Parse = Array.map ParseLine >> Map.ofArray
+    let parse = Array.map parseLine >> Map.ofArray
 
-    let private NumberOfOutermostBagPossibilities bagType lookup =
-        let rec BagsThatCanHold bagType =
+    let numberOfOutermostBagPossibilities bagType lookup =
+        let rec bagsThatCanHold bagType =
             let bagsThatCanHoldThis =
                 lookup
-                |> Map.filter (fun _ value ->
-                    let n = value |> Array.filter (fun (_, bag) -> bag = bagType) |> Array.length
-                    n > 0)
+                |> Map.filter (fun _ x -> x |> Array.exists (fun (_, bag) -> bag = bagType))
                 |> Map.toList
                 |> List.map fst
-            match bagsThatCanHoldThis.Length with
-            | 0 -> [ bagType ]
-            | _ ->
+            match bagsThatCanHoldThis.IsEmpty with
+            | true -> [ bagType ]
+            | false ->
                 bagsThatCanHoldThis
-                |> List.fold (fun acc b -> b |> BagsThatCanHold |> List.append acc) [ bagType ]
-        bagType |> BagsThatCanHold |> List.distinct |> List.length |> (+) -1
+                |> List.fold (fun acc b -> b |> bagsThatCanHold |> List.append acc) [ bagType ]
 
-    let private NumberOfBagsInside bagType (lookup : Map<string, (int * string)[]>) =
-        let rec NumberOfBagsInsideImpl bagType =
-            lookup.[bagType] |> Array.sumBy (fun (n, b) -> n + (n * NumberOfBagsInsideImpl b))
-        NumberOfBagsInsideImpl bagType
+        bagType |> bagsThatCanHold |> List.distinct |> List.length |> (+) -1
 
-    let Solve (input : string array) =
-        let parsedInput = input |> Parse
-        let partOneSolution = parsedInput |> NumberOfOutermostBagPossibilities "shiny gold"
-        let partTwoSolution = parsedInput |> NumberOfBagsInside "shiny gold"
-        uint64 partOneSolution, uint64 partTwoSolution
+    let numberOfBagsInside bagType (lookup : Map<string, (int * string)[]>) =
+        let rec numberOfBagsInsideImpl bagType =
+            lookup.[bagType] |> Array.sumBy (fun (n, b) -> n + (n * numberOfBagsInsideImpl b))
+        numberOfBagsInsideImpl bagType
 
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day07.Solve
+    let solve (input : string array) =
+        let parsedInput = input |> parse
+        let partOne = parsedInput |> numberOfOutermostBagPossibilities "shiny gold"
+        let partTwo = parsedInput |> numberOfBagsInside "shiny gold"
+        uint64 partOne, uint64 partTwo
+
+let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day07.solve
 printfn "Day 07: [ %i, %i ]" (fst solution) (snd solution)

@@ -1,43 +1,40 @@
 ﻿module Day02 =
 
-    type private Policy = {
-        min : int
-        max : int
-        letter : char
+    type Policy = {
+        Min : int
+        Max : int
+        Letter : char
     }
 
-    let private ParseInputLine (line : string) =
+    let parseInputLine (line : string) =
         let split = line.Split ' '
         let minMax = split.[0].Split '-' |> Array.map int
-        let min = int minMax.[0]
-        let max = int minMax.[1]
-        let letter = split.[1].Chars 0
-        let password = split.[2]
-        { min = min; max = max; letter = letter }, password
+        {
+            Min = int minMax.[0]
+            Max = int minMax.[1]
+            Letter = split.[1].Chars 0
+        }, split.[2]
 
-    let private ValidatePasswordRuleOne (policy, (password : string)) =
+    let validatePasswordRuleOne (policy, (password : string)) =
         password.ToCharArray()
-        |> Array.filter (fun c -> c = policy.letter)
+        |> Array.filter (fun c -> c = policy.Letter)
         |> Array.length
-        |> (fun n -> n >= policy.min && n <= policy.max)
+        |> (fun n -> n >= policy.Min && n <= policy.Max)
 
-    let private ValidatePasswordRuleTwo (policy, (password : string)) =
+    let validatePasswordRuleTwo (policy, (password : string)) =
         let matchingCharacterCount =
-            [| policy.min; policy.max |]
-            |> Array.filter (fun n -> password.[n-1] = policy.letter)
+            [| policy.Min; policy.Max |]
+            |> Array.filter (fun n -> password.[n - 1] = policy.Letter)
             |> Array.length
         matchingCharacterCount = 1
 
-    let private CountValidPasswords policiesAndPasswords isValid =
-        policiesAndPasswords
-        |> Array.filter isValid
-        |> Array.length
+    let countValidPasswords isValid policiesAndPasswords = policiesAndPasswords |> Array.filter isValid |> Array.length
 
-    let Solve (input : string array) =
-        let policiesAndPasswords = input |> Array.map ParseInputLine
-        let partOneSolution = CountValidPasswords policiesAndPasswords ValidatePasswordRuleOne
-        let partTwoSolution = CountValidPasswords policiesAndPasswords ValidatePasswordRuleTwo
-        uint64 partOneSolution, uint64 partTwoSolution
+    let solve (input : string array) =
+        let policiesAndPasswords = input |> Array.map parseInputLine
+        let partOne = policiesAndPasswords |> countValidPasswords validatePasswordRuleOne
+        let partTwo = policiesAndPasswords |> countValidPasswords validatePasswordRuleTwo
+        uint64 partOne, uint64 partTwo
 
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day02.Solve
+let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day02.solve
 printfn "Day 02: [ %i, %i ]" (fst solution) (snd solution)

@@ -3,68 +3,65 @@
     open System.Text.RegularExpressions
 
     [<Struct>]
-    type private Passport =
-        val mutable birthYear : string
-        val mutable issueYear : string
-        val mutable expirationYear : string
-        val mutable height : string
-        val mutable hairColor : string
-        val mutable eyeColor : string
-        val mutable passportId : string
-        val mutable countryId : string
+    type Passport =
+        val mutable BirthYear : string
+        val mutable IssueYear : string
+        val mutable ExpirationYear : string
+        val mutable Height : string
+        val mutable HairColor : string
+        val mutable EyeColor : string
+        val mutable PassportID : string
+        val mutable CountryID : string
 
-    let private validEyeColors = [| "amb"; "blu"; "brn"; "gry"; "grn"; "hzl"; "oth" |]
+    let validEyeColors = [| "amb"; "blu"; "brn"; "gry"; "grn"; "hzl"; "oth" |]
 
     // Divides a list, l, into chunks where each chunk contains elements for which
     // the predicate holds
-    let private Divide predicate l =
-        let rec Impl chunks chunk l =
+    let divide predicate l =
+        let rec impl chunks chunk l =
             match chunk, l with
             | [], [] -> chunks
             | chunk, [] -> chunk::chunks
-            | chunk, h::t when predicate h -> Impl chunks (h::chunk) t
-            | [], h::t -> Impl chunks [] t
-            | chunk, h::t -> Impl (chunk::chunks) [] t
-        l |> List.rev |> Impl [] []
+            | chunk, h::t when predicate h -> impl chunks (h::chunk) t
+            | [], h::t -> impl chunks [] t
+            | chunk, h::t -> impl (chunk::chunks) [] t
+        l |> List.rev |> impl [] []
 
-    let private ParseSingle input =
-        let mutable passport = new Passport()
-        let ParseField (line : string) =
+    let parseSingle input =
+        let mutable passport = Passport()
+        let parseField (line : string) =
             match line.Split ":" with
-            | [| "byr"; s |] -> passport.birthYear <- s
-            | [| "iyr"; s |] -> passport.issueYear <- s
-            | [| "eyr"; s |] -> passport.expirationYear <- s
-            | [| "hgt"; s |] -> passport.height <- s
-            | [| "hcl"; s |] -> passport.hairColor <- s
-            | [| "ecl"; s |] -> passport.eyeColor <- s
-            | [| "pid"; s |] -> passport.passportId <- s
-            | [| "cid"; s |] -> passport.countryId <- s
+            | [| "byr"; s |] -> passport.BirthYear <- s
+            | [| "iyr"; s |] -> passport.IssueYear <- s
+            | [| "eyr"; s |] -> passport.ExpirationYear <- s
+            | [| "hgt"; s |] -> passport.Height <- s
+            | [| "hcl"; s |] -> passport.HairColor <- s
+            | [| "ecl"; s |] -> passport.EyeColor <- s
+            | [| "pid"; s |] -> passport.PassportID <- s
+            | [| "cid"; s |] -> passport.CountryID <- s
             | _ -> ()
-        input |> List.iter ParseField
+        input |> List.iter parseField
         passport
 
-    let private Parse (input : string array) =
-        let CombineLines =
-            List.collect (fun (s : string) -> s.Split " " |> Array.toList)
+    let parse (input : string array) =
+        let combineLines = List.collect (fun (s : string) -> s.Split " " |> Array.toList)
         input
         |> Array.toList
-        |> Divide (fun s -> s.Length > 0)
-        |> List.map CombineLines
-        |> List.map ParseSingle
+        |> divide (fun s -> s.Length > 0)
+        |> List.map (combineLines >> parseSingle)
 
-    let private ValidateSimple (passport : Passport) =
-        isNull passport.birthYear |> not
-        && isNull passport.issueYear |> not
-        && isNull passport.expirationYear |> not
-        && isNull passport.height |> not
-        && isNull passport.hairColor |> not
-        && isNull passport.eyeColor |> not
-        && isNull passport.passportId |> not
+    let validateSimple (passport : Passport) =
+        isNull passport.BirthYear |> not
+        && isNull passport.IssueYear |> not
+        && isNull passport.ExpirationYear |> not
+        && isNull passport.Height |> not
+        && isNull passport.HairColor |> not
+        && isNull passport.EyeColor |> not
+        && isNull passport.PassportID |> not
 
-    let ValidateYear min max (y : string) =
-        (y.Length = 4) && (int y |> (fun y -> y >= min && y <= max))
+    let validateYear min max (y : string) = (y.Length = 4) && (int y |> (fun y -> y >= min && y <= max))
 
-    let private ValidateHeight (s : string) =
+    let validateHeight (s : string) =
         if s.EndsWith("cm") then
             let isNumber, h = s.Substring (0, (s.Length - 2)) |> System.Int32.TryParse
             isNumber && h >= 150 && h <= 193
@@ -74,27 +71,27 @@
         else
             false
 
-    let private ValidateHairColor (s : string) = Regex.IsMatch (s, "^#[\da-f]{6}$")
+    let validateHairColor (s : string) = Regex.IsMatch (s, "^#[\da-f]{6}$")
 
-    let private ValidateEyeColor (s : string) = validEyeColors |> Array.contains s
+    let validateEyeColor (s : string) = validEyeColors |> Array.contains s
 
-    let private ValidatePassportId (s : string) = Regex.IsMatch (s, "^\d{9}$")
+    let validatePassportId (s : string) = Regex.IsMatch (s, "^\d{9}$")
 
-    let private ValidateComplex (passport : Passport) =
-        ValidateYear 1920 2002 passport.birthYear
-        && ValidateYear 2010 2020 passport.issueYear
-        && ValidateYear 2020 2030 passport.expirationYear
-        && ValidateHeight passport.height
-        && ValidateHairColor passport.hairColor
-        && ValidateEyeColor passport.eyeColor
-        && ValidatePassportId passport.passportId
+    let validateComplex (passport : Passport) =
+        validateYear 1920 2002 passport.BirthYear
+        && validateYear 2010 2020 passport.IssueYear
+        && validateYear 2020 2030 passport.ExpirationYear
+        && validateHeight passport.Height
+        && validateHairColor passport.HairColor
+        && validateEyeColor passport.EyeColor
+        && validatePassportId passport.PassportID
 
-    let Solve (input : string array) =
-        let validPassportsSimple = input |> Parse |> List.filter ValidateSimple
-        let validPassportsComplex = validPassportsSimple |> List.filter ValidateComplex
+    let solve (input : string array) =
+        let validPassportsSimple = input |> parse |> List.filter validateSimple
+        let validPassportsComplex = validPassportsSimple |> List.filter validateComplex
         let partOneSolution = validPassportsSimple |> List.length
         let partTwoSolution = validPassportsComplex |> List.length
         uint64 partOneSolution, uint64 partTwoSolution
 
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day04.Solve
+let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day04.solve
 printfn "Day 04: [ %i, %i ]" (fst solution) (snd solution)

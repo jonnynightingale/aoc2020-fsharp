@@ -1,65 +1,62 @@
 ﻿module Day16 =
 
     [<Struct>]
-    type private Rule = {
-        fieldName : string
-        range1 : int * int
-        range2 : int * int
+    type Rule = {
+        FieldName : string
+        Range1 : int * int
+        Range2 : int * int
     }
+
+    type Ticket = int array
 
     [<Struct>]
-    type private Ticket = {
-        fields : int array
+    type Input = {
+        Rules : Rule array
+        YourTicket : Ticket
+        NearbyTickets : Ticket array
     }
 
-    [<Struct>]
-    type private Input = {
-        rules : Rule array
-        yourTicket : Ticket
-        nearbyTickets : Ticket array
-    }
-
-    let private ParseRange (s : string) =
+    let parseRange (s : string) =
         let range = s.Split('-') |> Array.map int
         range.[0], range.[1]
 
-    let private ParseRules (rulesInput : string array) =
-        rulesInput
-        |> Array.map (fun s -> s.Split(':'))
-        |> Array.map (fun ss -> Array.append (ss |> Array.take 1) (ss.[1].Split(' ')))
-        |> Array.map (fun ss -> {
-            fieldName = ss.[0];
-            range1 = ss.[2] |> ParseRange;
-            range2 = ss.[4] |> ParseRange;
+    let parseRules =
+        Array.map (fun (s : string) -> s.Split(':'))
+        >> Array.map (fun ss -> Array.append (ss |> Array.take 1) (ss.[1].Split(' ')))
+        >> Array.map (fun ss -> {
+            FieldName = ss.[0];
+            Range1 = ss.[2] |> parseRange;
+            Range2 = ss.[4] |> parseRange;
         })
 
-    let private ParseTicket (ticketInput : string) =
-        { fields = ticketInput.Split(',') |> Array.map int }
+    let parseTicket (ticketInput : string) =
+        ticketInput.Split(',') |> Array.map int
 
-    let private Parse (input : string array) =
+    let parse (input : string array) =
         {
-            rules = input.[0..19] |> ParseRules
-            yourTicket = input.[22] |> ParseTicket
-            nearbyTickets = input.[25..] |> Array.map ParseTicket
+            Rules = input.[0..19] |> parseRules
+            YourTicket = input.[22] |> parseTicket
+            NearbyTickets = input.[25..] |> Array.map parseTicket
         }
 
-    let private IsValid (n : int) (rule : Rule) =
-        let IsInRange (min, max) = (n >= min) && (n <= max)
-        (IsInRange rule.range1) || (IsInRange rule.range2)
+    let isValid (n : int) (rule : Rule) =
+        let isInRange (min, max) = (n >= min) && (n <= max)
+        (isInRange rule.Range1) || (isInRange rule.Range2)
 
-    let private ErrorRate (rules : Rule array) (ticket : Ticket) =
-        ticket.fields
-        |> Array.filter (fun f -> rules |> Array.exists (IsValid f) |> not)
+    let errorRate rules ticket =
+        ticket
+        |> Array.filter (fun f -> rules |> Array.exists (isValid f) |> not)
         |> Array.sum
 
-    let private SolvePartTwo (rules : Rule array) (tickets : Ticket array) =
+    let solvePartTwo rules tickets =
         tickets
-        |> Array.filter (fun t -> t |> ErrorRate rules |> (=) 0)
+        |> Array.filter (fun t -> t |> errorRate rules |> (=) 0)
+        // TODO: Determine which field is which
 
-    let Solve (input : string array) =
-        let data = input |> Parse
-        let partOneSolution = data.nearbyTickets |> Array.map (ErrorRate data.rules) |> Array.sum
-        uint64 partOneSolution, uint64 0
+    let solve (input : string array) =
+        let data = input |> parse
+        let partOne = data.NearbyTickets |> Array.sumBy (errorRate data.Rules)
+        uint64 partOne, uint64 0
 
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day16.Solve
+let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day16.solve
 printfn "Day 16: [ %i, %i ]" (fst solution) (snd solution)

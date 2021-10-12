@@ -1,75 +1,74 @@
 ﻿module Day08 =
 
-    type private InstructionName = Acc | Jmp | Nop
+    type InstructionName = Acc | Jmp | Nop
 
     [<Struct>]
-    type private Instruction =
-        val name : InstructionName
-        val value : int
-        new (inName, inValue) = { name = inName; value = inValue }
+    type Instruction = {
+        Name : InstructionName
+        Value : int
+    }
 
     [<Struct>]
-    type private ProgramState =
-        val accumulator : int
-        val instructionIndex : int
-        new (acc, index) = { accumulator = acc; instructionIndex = index }
+    type ProgramState = {
+        Accumulator : int
+        InstructionIndex : int
+    }
 
-    let private initialState = ProgramState(0, 0)
+    let initialState = { Accumulator = 0; InstructionIndex = 0 }
 
-    type private HaltReason = LoopDetected | Complete
+    type HaltReason = LoopDetected | Complete
 
-    let private ParseLine (line : string) =
+    let parseLine (line : string) =
         let instructionName =
             match line.Substring(0, 3) with
             | "acc" -> Acc
             | "jmp" -> Jmp
             | _     -> Nop
         let value = line.Substring(4, line.Length - 4) |> int
-        Instruction (instructionName, value)
+        { Name = instructionName; Value = value }
 
-    let private Execute (state : ProgramState) (instruction : Instruction) =
-        match instruction.name with
-        | Acc -> ProgramState (state.accumulator + instruction.value, state.instructionIndex + 1)
-        | Jmp -> ProgramState (state.accumulator, state.instructionIndex + instruction.value)
-        | Nop -> ProgramState (state.accumulator, state.instructionIndex + 1)
+    let execute state instruction =
+        match instruction.Name with
+        | Acc -> { Accumulator = state.Accumulator + instruction.Value; InstructionIndex = state.InstructionIndex + 1 }
+        | Jmp -> { state with InstructionIndex = state.InstructionIndex + instruction.Value }
+        | Nop -> { state with InstructionIndex = state.InstructionIndex + 1 }
 
-    let private Run (state : ProgramState) (program : Instruction array) =
-        let rec RunImpl (executedInstructions : int list) (state : ProgramState) =
-            if state.instructionIndex = program.Length then
+    let run state (program : Instruction array) =
+        let rec runImpl (executedInstructions : int list) (state : ProgramState) =
+            if state.InstructionIndex = program.Length then
                 Complete, state
-            elif executedInstructions |> List.contains state.instructionIndex then
+            elif executedInstructions |> List.contains state.InstructionIndex then
                 LoopDetected, state
             else
-                program.[state.instructionIndex]
-                |> Execute state
-                |> RunImpl (state.instructionIndex :: executedInstructions)
-        RunImpl [] state
+                program.[state.InstructionIndex]
+                |> execute state
+                |> runImpl (state.InstructionIndex :: executedInstructions)
+        runImpl [] state
 
-    let private CanBeAltered (instruction : Instruction) =
-        match instruction.name with
+    let canBeAltered = function
         | Jmp | Nop -> true
         | _ -> false
 
-    let private Alter (i : Instruction) = Instruction ((if i.name = Jmp then Nop else Jmp), i.value)
+    let alter i = { Name = (if i.Name = Jmp then Nop else Jmp); Value = i.Value }
 
-    let private FixProgramAndRun (program : Instruction array) =
-        let rec Impl (state : ProgramState) =
-            let currentInstruction = program.[state.instructionIndex]
-            if currentInstruction |> CanBeAltered then
+    let fixProgramAndRun (program : Instruction array) =
+        let rec impl (state : ProgramState) =
+            let currentInstruction = program.[state.InstructionIndex]
+            if currentInstruction.Name |> canBeAltered then
                 let alteredProgram = program |> Array.mapi (fun idx ins ->
-                    if idx = state.instructionIndex then Alter ins else ins)
-                match alteredProgram |> Run state with
+                    if idx = state.InstructionIndex then alter ins else ins)
+                match alteredProgram |> run state with
                 | Complete, finalState -> finalState
-                | _ -> currentInstruction |> Execute state |> Impl
+                | _ -> currentInstruction |> execute state |> impl
             else
-                currentInstruction |> Execute state |> Impl
-        Impl initialState
+                currentInstruction |> execute state |> impl
+        impl initialState
 
-    let Solve (input : string array) =
-        let program = input |> Array.map ParseLine
-        let partOneSolution = program |> Run initialState |> snd |> (fun i -> i.accumulator)
-        let partTwoSolution = program |> FixProgramAndRun |> (fun i -> i.accumulator)
+    let solve (input : string array) =
+        let program = input |> Array.map parseLine
+        let partOneSolution = program |> run initialState |> snd |> (fun i -> i.Accumulator)
+        let partTwoSolution = program |> fixProgramAndRun |> (fun i -> i.Accumulator)
         uint64 partOneSolution, uint64 partTwoSolution
 
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day08.Solve
+let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day08.solve
 printfn "Day 08: [ %i, %i ]" (fst solution) (snd solution)

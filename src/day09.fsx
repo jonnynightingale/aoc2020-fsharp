@@ -1,39 +1,38 @@
 ﻿module Day09 =
 
-    let private GroupValues span numbers =
+    let groupValues span numbers =
         numbers
         |> Array.skip span
         |> Array.mapi (fun i n -> n, numbers.[i..(i+span-1)])
 
-    let private DoesNotContainSumPair n ns =
+    let doesNotContainSumPair n ns =
         ns
         |> Array.map (fun k -> n - k)
         |> Array.filter (fun k -> (k + k) <> n)
-        |> Array.filter (fun k -> ns |> Array.contains k)
-        |> Array.isEmpty
+        |> Array.exists (fun k -> ns |> Array.contains k)
+        |> not
 
-    let private FirstInvalidNumber =
-        Array.filter (fun (a, b) -> DoesNotContainSumPair a b)
+    let firstInvalidNumber =
+        Array.filter (fun (a, b) -> doesNotContainSumPair a b)
         >> Array.head
         >> fst
 
-    let private FirstSliceThatSumsTo target (numbers : int64 array) =
-        let rec Impl min max =
+    let firstSliceThatSumsTo target (numbers : int64 array) =
+        let rec impl min max =
             let window = numbers.[min..max]
             match window |> Array.sum with
-            | n when n < target -> Impl min (max+1)
-            | n when n > target -> Impl (min+1) max
+            | n when n < target -> impl min (max+1)
+            | n when n > target -> impl (min+1) max
             | _ -> window
-        Impl 0 1
+        impl 0 1
 
-    let private SumOfMinAndMax (numbers : int64 array) =
-        (+) (numbers |> Array.min) (numbers |> Array.max)
+    let sumOfMinAndMax numbers = (+) (numbers |> Array.min) (numbers |> Array.max)
 
-    let Solve (input : string array) =
+    let solve (input : string array) =
         let numbers = input |> Array.map int64
-        let partOneSolution = numbers |> GroupValues 25 |> FirstInvalidNumber
-        let partTwoSolution = numbers |> FirstSliceThatSumsTo partOneSolution |> SumOfMinAndMax
-        uint64 partOneSolution, uint64 partTwoSolution
+        let partOne = numbers |> groupValues 25 |> firstInvalidNumber
+        let partTwo = numbers |> firstSliceThatSumsTo partOne |> sumOfMinAndMax
+        uint64 partOne, uint64 partTwo
 
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day09.Solve
+let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day09.solve
 printfn "Day 09: [ %i, %i ]" (fst solution) (snd solution)

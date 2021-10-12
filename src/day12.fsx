@@ -1,86 +1,86 @@
 ﻿module Day12 =
 
-    type private Direction = North = 0 | East = 1 | South = 2 | West = 3
+    type Direction = North = 0 | East = 1 | South = 2 | West = 3
 
-    type private Instruction = MoveNorth | MoveEast | MoveSouth | MoveWest | TurnLeft | TurnRight | MoveForward
-
-    [<Struct>]
-    type private Position = { x : int; y : int }
+    type Instruction = MoveNorth | MoveEast | MoveSouth | MoveWest | TurnLeft | TurnRight | MoveForward
 
     [<Struct>]
-    type private ShipState = {
-        position : Position
-        waypoint : Position
-        facing : Direction
+    type Position = { X : int; Y : int }
+
+    [<Struct>]
+    type ShipState = {
+        Position : Position
+        Waypoint : Position
+        Facing : Direction
     }
 
     [<Struct>]
-    type private Directive = {
-        instruction : Instruction
-        amount : int
+    type Directive = {
+        Instruction : Instruction
+        Amount : int
     }
 
-    let private RotateRight amount (state : ShipState) =
-        let newDirection = state.facing |> int |> (+) (amount / 90) |> (fun x -> x % 4) |> enum<Direction>
-        { state with facing = newDirection }
+    let rotateRight amount (state : ShipState) =
+        let newDirection = state.Facing |> int |> (+) (amount / 90) |> (fun x -> x % 4) |> enum<Direction>
+        { state with Facing = newDirection }
 
-    let private RotateLeft amount = RotateRight (360 - amount)
+    let rotateLeft amount = rotateRight (360 - amount)
 
-    let private MoveInDirection amount direction (state : ShipState) =
+    let moveInDirection amount direction (state : ShipState) =
         match direction with
-        | Direction.North -> { state with position = { state.position with y = state.position.y + amount } }
-        | Direction.East  -> { state with position = { state.position with x = state.position.x + amount } }
-        | Direction.South -> { state with position = { state.position with y = state.position.y - amount } }
-        | Direction.West  -> { state with position = { state.position with x = state.position.x - amount } }
+        | Direction.North -> { state with Position = { state.Position with Y = state.Position.Y + amount } }
+        | Direction.East  -> { state with Position = { state.Position with X = state.Position.X + amount } }
+        | Direction.South -> { state with Position = { state.Position with Y = state.Position.Y - amount } }
+        | Direction.West  -> { state with Position = { state.Position with X = state.Position.X - amount } }
         | _ -> state
 
-    let private MoveShip (state : ShipState) (directive : Directive) =
-        match directive.instruction with
-        | MoveNorth   -> state |> MoveInDirection directive.amount Direction.North
-        | MoveEast    -> state |> MoveInDirection directive.amount Direction.East
-        | MoveSouth   -> state |> MoveInDirection directive.amount Direction.South
-        | MoveWest    -> state |> MoveInDirection directive.amount Direction.West
-        | TurnLeft    -> state |> RotateLeft      directive.amount
-        | TurnRight   -> state |> RotateRight     directive.amount
-        | MoveForward -> state |> MoveInDirection directive.amount state.facing
+    let moveShip (state : ShipState) (directive : Directive) =
+        match directive.Instruction with
+        | MoveNorth   -> state |> moveInDirection directive.Amount Direction.North
+        | MoveEast    -> state |> moveInDirection directive.Amount Direction.East
+        | MoveSouth   -> state |> moveInDirection directive.Amount Direction.South
+        | MoveWest    -> state |> moveInDirection directive.Amount Direction.West
+        | TurnLeft    -> state |> rotateLeft      directive.Amount
+        | TurnRight   -> state |> rotateRight     directive.Amount
+        | MoveForward -> state |> moveInDirection directive.Amount state.Facing
 
-    let private MoveWaypoint amount direction (state : ShipState) =
+    let moveWaypoint amount direction (state : ShipState) =
         match direction with
-        | Direction.North -> { state with waypoint = { state.waypoint with y = state.waypoint.y + amount } }
-        | Direction.East  -> { state with waypoint = { state.waypoint with x = state.waypoint.x + amount } }
-        | Direction.South -> { state with waypoint = { state.waypoint with y = state.waypoint.y - amount } }
-        | Direction.West  -> { state with waypoint = { state.waypoint with x = state.waypoint.x - amount } }
+        | Direction.North -> { state with Waypoint = { state.Waypoint with Y = state.Waypoint.Y + amount } }
+        | Direction.East  -> { state with Waypoint = { state.Waypoint with X = state.Waypoint.X + amount } }
+        | Direction.South -> { state with Waypoint = { state.Waypoint with Y = state.Waypoint.Y - amount } }
+        | Direction.West  -> { state with Waypoint = { state.Waypoint with X = state.Waypoint.X - amount } }
         | _ -> state
 
-    let private RotateWaypointRight amount (state : ShipState) =
+    let rotateWaypointRight amount (state : ShipState) =
         match amount with
-        |  90 -> { state with waypoint = { x =  state.waypoint.y; y = -state.waypoint.x } }
-        | 180 -> { state with waypoint = { x = -state.waypoint.x; y = -state.waypoint.y } }
-        | 270 -> { state with waypoint = { x = -state.waypoint.y; y =  state.waypoint.x } }
+        |  90 -> { state with Waypoint = { X =  state.Waypoint.Y; Y = -state.Waypoint.X } }
+        | 180 -> { state with Waypoint = { X = -state.Waypoint.X; Y = -state.Waypoint.Y } }
+        | 270 -> { state with Waypoint = { X = -state.Waypoint.Y; Y =  state.Waypoint.X } }
         | _   -> state
 
-    let private RotateWaypointLeft amount = RotateWaypointRight (360 - amount)
+    let rotateWaypointLeft amount = rotateWaypointRight (360 - amount)
 
-    let private MoveTowardsWaypoint amount (state : ShipState) =
+    let moveTowardsWaypoint amount (state : ShipState) =
         let newPosition = {
-            state.position with
-                x = state.position.x + (amount * state.waypoint.x)
-                y = state.position.y + (amount * state.waypoint.y)
+            state.Position with
+                X = state.Position.X + (amount * state.Waypoint.X)
+                Y = state.Position.Y + (amount * state.Waypoint.Y)
         }
-        { state with position = newPosition }
+        { state with Position = newPosition }
 
-    let private MoveShipWithWaypoint (state : ShipState) (directive : Directive) =
-        match directive.instruction with
-        | MoveNorth   -> state |> MoveWaypoint directive.amount Direction.North
-        | MoveEast    -> state |> MoveWaypoint directive.amount Direction.East
-        | MoveSouth   -> state |> MoveWaypoint directive.amount Direction.South
-        | MoveWest    -> state |> MoveWaypoint directive.amount Direction.West
-        | TurnLeft    -> state |> RotateWaypointLeft directive.amount
-        | TurnRight   -> state |> RotateWaypointRight directive.amount
-        | MoveForward -> state |> MoveTowardsWaypoint directive.amount
+    let moveShipWithWaypoint (state : ShipState) (directive : Directive) =
+        match directive.Instruction with
+        | MoveNorth   -> state |> moveWaypoint directive.Amount Direction.North
+        | MoveEast    -> state |> moveWaypoint directive.Amount Direction.East
+        | MoveSouth   -> state |> moveWaypoint directive.Amount Direction.South
+        | MoveWest    -> state |> moveWaypoint directive.Amount Direction.West
+        | TurnLeft    -> state |> rotateWaypointLeft directive.Amount
+        | TurnRight   -> state |> rotateWaypointRight directive.Amount
+        | MoveForward -> state |> moveTowardsWaypoint directive.Amount
 
-    let private Parse input =
-        let ParseLine (s : string) =
+    let parse input =
+        let parseLine (s : string) =
             let instruction =
                 match s.Chars 0 with
                 | 'N' -> MoveNorth
@@ -90,21 +90,21 @@
                 | 'L' -> TurnLeft
                 | 'R' -> TurnRight
                 |  _  -> MoveForward
-            { instruction = instruction; amount = s.Substring 1 |> int }
-        input |> Array.map ParseLine
+            { Instruction = instruction; Amount = s.Substring 1 |> int }
+        input |> Array.map parseLine
 
-    let private ManhattanDistance (state : ShipState) = (abs state.position.x) + (abs state.position.y)
+    let manhattanDistance (state : ShipState) = (abs state.Position.X) + (abs state.Position.Y)
 
-    let Solve input =
-        let directives = input |> Parse
+    let solve input =
+        let directives = input |> parse
         let initialState = {
-            position = { x =  0; y = 0 };
-            waypoint = { x = 10; y = 1 };
-            facing = Direction.East
+            Position = { X =  0; Y = 0 };
+            Waypoint = { X = 10; Y = 1 };
+            Facing = Direction.East
         }
-        let partOneSolution = (initialState, directives) ||> Array.fold MoveShip |> ManhattanDistance
-        let partTwoSolution = (initialState, directives) ||> Array.fold MoveShipWithWaypoint |> ManhattanDistance
-        uint64 partOneSolution, uint64 partTwoSolution
+        let partOne = (initialState, directives) ||> Array.fold moveShip |> manhattanDistance
+        let partTwo = (initialState, directives) ||> Array.fold moveShipWithWaypoint |> manhattanDistance
+        uint64 partOne, uint64 partTwo
 
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day12.Solve
+let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day12.solve
 printfn "Day 12: [ %i, %i ]" (fst solution) (snd solution)

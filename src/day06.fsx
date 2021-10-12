@@ -2,38 +2,37 @@
 
     // Divides a list, l, into chunks where each chunk contains elements for which
     // the predicate holds
-    let private Divide predicate l =
-        let rec Impl chunks chunk l =
+    let divide predicate l =
+        let rec impl chunks chunk l =
             match chunk, l with
             | [], [] -> chunks
             | chunk, [] -> chunk::chunks
-            | chunk, h::t when predicate h -> Impl chunks (h::chunk) t
-            | [], h::t -> Impl chunks [] t
-            | chunk, h::t -> Impl (chunk::chunks) [] t
-        l |> List.rev |> Impl [] []
+            | chunk, h::t when predicate h -> impl chunks (h::chunk) t
+            | [], h::t -> impl chunks [] t
+            | chunk, h::t -> impl (chunk::chunks) [] t
+        l |> List.rev |> impl [] []
 
-    let private AddQuestion questions letter =
+    let addQuestion questions letter =
         let flagIndex = (int letter) - (int 'a')
         questions ||| (1u <<< flagIndex)
 
-    let private Parse (input : string array) =
-        let ParseIndividual (personInput : string) = personInput.ToCharArray() |> Array.fold AddQuestion 0u
-        let ParseGroup (groupInput : string list) = groupInput |> List.map ParseIndividual
-        input |> Array.toList |> Divide (fun s -> s.Length > 0) |> List.map ParseGroup
+    let parse (input : string array) =
+        let parseIndividual (personInput : string) = personInput.ToCharArray() |> Array.fold addQuestion 0u
+        let parseGroup (groupInput : string list) = groupInput |> List.map parseIndividual
+        input |> Array.toList |> divide (fun s -> s.Length > 0) |> List.map parseGroup
 
-    let CountBits (n : uint32) =
-        let BitIsSet i = (n &&& (1u <<< i)) > 0u
-        [|0..31|] |> Array.filter BitIsSet |> Array.length
+    let countBits (n : uint32) =
+        let bitIsSet i = (n &&& (1u <<< i)) > 0u
+        [|0..31|] |> Array.filter bitIsSet |> Array.length
 
-    let Solve (input : string array) =
-        let parsedInput = input |> Parse
-        let PartOneFold = List.fold (|||) 0u
-        let PartTwoFold = List.fold (&&&) ~~~0u
-        let SolveWithFold fold =
-            parsedInput |> List.map fold |> List.map CountBits |> List.sum
-        let partOneSolution = SolveWithFold PartOneFold
-        let partTwoSolution = SolveWithFold PartTwoFold
+    let solve (input : string array) =
+        let parsedInput = input |> parse
+        let partOneFold = List.fold (|||) 0u
+        let partTwoFold = List.fold (&&&) ~~~0u
+        let solveWithFold fold = parsedInput |> List.sumBy (fold >> countBits)
+        let partOneSolution = solveWithFold partOneFold
+        let partTwoSolution = solveWithFold partTwoFold
         uint64 partOneSolution, uint64 partTwoSolution
 
-let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day06.Solve
+let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day06.solve
 printfn "Day 06: [ %i, %i ]" (fst solution) (snd solution)
