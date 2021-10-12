@@ -48,15 +48,46 @@
         |> Array.filter (fun f -> rules |> Array.exists (isValid f) |> not)
         |> Array.sum
 
-    let solvePartTwo rules tickets =
-        tickets
-        |> Array.filter (fun t -> t |> errorRate rules |> (=) 0)
-        // TODO: Determine which field is which
+    let solvePartTwo input =
+        let filterRulesForTicket ruleIndicesArr ticket : int array array =
+            let filterRulesForValue (ruleIndices : int array) (n : int) : int array =
+                ruleIndices |> Array.filter (fun i -> isValid n input.Rules.[i])
+
+            Array.zip ruleIndicesArr ticket |> Array.map (fun (i, t) -> filterRulesForValue i t)
+
+        let fieldCount = input.NearbyTickets |> Array.head |> Array.length
+        let ruleIndices = Array.create fieldCount [| 0 .. fieldCount - 1 |]
+        let validRulesForPosition =
+            input.NearbyTickets
+            |> Array.filter (errorRate input.Rules >> (=) 0)
+            |> Array.fold filterRulesForTicket ruleIndices
+
+        let foldPermutation state _ =
+            let position = state |> fst |> Array.findIndex (Array.length >> (=) 1)
+            let ruleIndex = state |> fst |> (fun x -> Array.get x position) |> Array.exactlyOne
+            (
+                state |> fst |> Array.map (Array.filter ((<>) ruleIndex)),
+                (position, ruleIndex) :: (state |> snd)
+            )
+
+        let departurePositions =
+            validRulesForPosition
+            |> Array.fold foldPermutation (validRulesForPosition, [])
+            |> snd
+            |> List.filter (fun (_, ruleIndex) -> ruleIndex < 6)
+            |> List.map fst
+
+        input.YourTicket
+        |> Array.indexed
+        |> Array.filter (fun (i, _) -> departurePositions |> List.contains i)
+        |> Array.map (snd >> uint64)
+        |> Array.fold (*) 1UL
 
     let solve (input : string array) =
         let data = input |> parse
         let partOne = data.NearbyTickets |> Array.sumBy (errorRate data.Rules)
-        uint64 partOne, uint64 0
+        let partTwo = solvePartTwo data
+        uint64 partOne, uint64 partTwo
 
 let solution = fsi.CommandLineArgs.[1] |> System.IO.File.ReadAllLines |> Day16.solve
 printfn "Day 16: [ %i, %i ]" (fst solution) (snd solution)
