@@ -59,7 +59,7 @@ dotnet fsi src/test.fsx
 | [Day 19: Monster Messages](https://adventofcode.com/2020/day/19)        | [day19.fsx](src/day19.fsx) | ✔️     | ✔️     |
 | [Day 20: Jurassic Jigsaw](https://adventofcode.com/2020/day/20)         |                            |        |        |
 | [Day 21: Allergen Assessment](https://adventofcode.com/2020/day/21)     | [day21.fsx](src/day21.fsx) | ✔️     | ✔️     |
-| [Day 22: Crab Combat](https://adventofcode.com/2020/day/22)             | [day22.fsx](src/day22.fsx) | ✔️     |        |
+| [Day 22: Crab Combat](https://adventofcode.com/2020/day/22)             | [day22.fsx](src/day22.fsx) | ✔️     | ✔️     |
 | [Day 23: Crab Cups](https://adventofcode.com/2020/day/23)               |                            |        |        |
 | [Day 24: Lobby Layout](https://adventofcode.com/2020/day/24)            |                            |        |        |
 | [Day 25: Combo Breaker](https://adventofcode.com/2020/day/25)           |                            |        |        |
