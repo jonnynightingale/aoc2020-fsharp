@@ -33,6 +33,7 @@ let tests = [|
     { Day = 17; File = "../test/day17.txt"; Part1 = Some "112"; Part2 = Some "848" }
     { Day = 18; File = "../test/day18.txt"; Part1 = Some "26457"; Part2 = Some "694173" }
     { Day = 19; File = "../test/day19.txt"; Part1 = Some "3"; Part2 = Some "12" }
+    { Day = 20; File = "../test/day19.txt"; Part1 = None; Part2 = None }
     { Day = 21; File = "../test/day21.txt"; Part1 = Some "5"; Part2 = Some "mxmxvkd,sqjhc,fvjkl" }
 |]
 

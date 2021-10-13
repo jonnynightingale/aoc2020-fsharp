@@ -17,6 +17,7 @@
 #load "day17.fsx"
 #load "day18.fsx"
 #load "day19.fsx"
+#load "day20.fsx"
 #load "day21.fsx"
 
 open Day01
@@ -38,6 +39,7 @@ open Day16
 open Day17
 open Day18
 open Day19
+open Day20
 open Day21
 
 let solvers = Map [
@@ -60,6 +62,7 @@ let solvers = Map [
     ( 17, Day17.solve )
     ( 18, Day18.solve )
     ( 19, Day19.solve )
+    ( 20, Day20.solve )
     ( 21, Day21.solve )
 ]
 
