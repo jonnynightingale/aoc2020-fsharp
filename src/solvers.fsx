@@ -19,6 +19,7 @@
 #load "day19.fsx"
 #load "day20.fsx"
 #load "day21.fsx"
+#load "day22.fsx"
 
 open Day01
 open Day02
@@ -41,6 +42,7 @@ open Day18
 open Day19
 open Day20
 open Day21
+open Day22
 
 let solvers = Map [
     ( 1, Day01.solve )
@@ -64,6 +66,7 @@ let solvers = Map [
     ( 19, Day19.solve )
     ( 20, Day20.solve )
     ( 21, Day21.solve )
+    ( 22, Day22.solve )
 ]
 
 let getSolver dayNumber = solvers |> Map.find dayNumber
