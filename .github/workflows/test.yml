@@ -14,7 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ubuntu-latest, windows-latest, macOS-latest]
-        dotnet-version: ['2.1', '2.2', '3.0', '3.1', '5.0']
+        # dotnet-version: ['2.1', '2.2', '3.0', '3.1', '5.0']
+        dotnet-version: ['5.0']
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -28,3 +29,5 @@ jobs:
           $version = & dotnet --version
           Write-Host "Installed version: $version"
           if (-not $version.StartsWith("${{ matrix.dotnet-version }}")) { throw "Unexpected version" }
+      - name: Run unit tests
+        run: dotnet fsi src/test.fsx
