@@ -35,14 +35,14 @@ let tests = [|
     { Day = 19; File = "../test/day19.txt"; Part1 = Some "3"; Part2 = Some "12" }
     { Day = 20; File = "../test/day19.txt"; Part1 = None; Part2 = None }
     { Day = 21; File = "../test/day21.txt"; Part1 = Some "5"; Part2 = Some "mxmxvkd,sqjhc,fvjkl" }
-    { Day = 22; File = "../test/day22.txt"; Part1 = Some "306"; Part2 = None }
+    { Day = 22; File = "../test/day22.txt"; Part1 = Some "306"; Part2 = Some "291" }
 |]
 
 let runTest test =
     let solver = getSolver test.Day
     let testFile = System.IO.Path.Combine (__SOURCE_DIRECTORY__, test.File)
     let solution = testFile |> System.IO.File.ReadAllLines |> solver
-    test.Part1 |> Option.iter (should equal (solution |> fst))
-    test.Part2 |> Option.iter (should equal (solution |> snd))
+    test.Part1 |> Option.iter (fun x -> solution |> fst |> should equal x)
+    test.Part2 |> Option.iter (fun x -> solution |> snd |> should equal x)
 
 tests |> Array.map runTest
